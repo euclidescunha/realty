@@ -1,9 +1,8 @@
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 
-from core.daos import AbstractRealtyDao
-from core.models import Realty
-
+from .abstract_realty_dao import AbstractRealtyDao
+from realtyapp.models import Realty
 
 class RealtyMapper:
 

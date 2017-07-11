@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load styling_tags %}
+
+{% block title %}Rent It! Cadastrar Novo{% endblock %}
+
+{% block add-real-estate-menu-class %}active{% endblock %}
+
+{% block page-header %}Cadastrar Novo{% endblock %}
+
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-12">
+      <p>Anuncie seu imóvel.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      {% if form.errors %}
+        {% for field in form %}
+          {% for error in field.errors %}
+            <div class="alert alert-danger" role="alert">
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              <span class="sr-only">Error:</span>
+              {{ error|escape }}
+            </div>
+          {% endfor %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <form action="." method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for field in form %}
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">
+              {{ field.label }}
+            </span>
+            {{ field|add_css_class:"form-control" }}
+          </div>
+        {% endfor %}
+
+        <div class="input-group">
+          <input type="submit" value="Enviar" />
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

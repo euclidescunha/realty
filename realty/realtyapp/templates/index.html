@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load styling_tags %}
+{% block home-menu-class %}active{% endblock %}
+
+{% block content %}
+<div class="row">
+  <h1>Bem-vindo ao Bzout Imóveis!</h1>
+  <p><strong>Imóveis do seu jeito!</strong> Confira abaixo as opções.</p>
+</div>
+
+<div class="row">
+  <form action="." method="get">
+    <div class="col-md-6">
+      <div class="input-group">
+        <span class="input-group-btn">
+          <input class="btn btn-default" type="submit" value="Procurar" />
+        </span>
+        {{ form.address|add_css_class:"form-control" }}
+      </div>
+    </div>
+    <div class="col-md-6">
+      {{ form.search_nearby }} Listar imóveis nas redondezas
+    </div>
+  </form>
+</div>
+{% for obj in object_list %}
+  {% if forloop.first %}
+    <div class="row">
+      <div id="map"></div>
+      <script>
+        function initMap() {
+          var coord = {lat: {{ obj.latitude }}, lng: {{ obj.longitude }} };
+          // Create a map object and specify the DOM element for display.
+          var map = new google.maps.Map(document.getElementById('map'), {
+            center: coord,
+            scrollwheel: false,
+            zoom: 8
+          });
+          var locations = document.getElementsByClassName('makers');
+          for (i = 0; i < locations.length; i++) {
+            var coord = locations[i].textContent.split('|');
+            var marker = new google.maps.Marker({
+              position: new google.maps.LatLng(coord[0], coord[1]),
+              map: map
+            });
+          }
+        }
+      </script>
+    </div>
+  {% endif %}
+
+  <div class="row">
+    <div class="col-md-4">
+      <a class="thumbnail" href="#">
+      {% if obj.photo %}
+        <img class="responsive" alt="" src="{{ obj.photo.url }}" />
+      {% endif %}
+      </a>
+    </div>
+    <div class="col-md-8">
+      {{ obj.address }}
+      <span class="hidden makers">{{ obj.latitude }}|{{ obj.longitude }}</span>
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock %}
+
+{% block post-script%}
+  <script src="https://maps.googleapis.com/maps/api/js?key=keygoogle=initMap" async defer></script>
+{% endblock %}

@@ -6,8 +6,8 @@ from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.test import TestCase
 
-from core.daos import RealtyDAO
-from core.models import Realty
+from realtyapp.daos import RealtyDAO
+from realtyapp.models import Realty
 
 
 class RealtyDAOTestCase(TestCase):
@@ -83,19 +83,19 @@ class RealtyDAOTestCase(TestCase):
         self.assertEqual(expected, result)
 
 
-class RealEstateMapperTestCase(TestCase):
+class RealtyMapperTestCase(TestCase):
 
     def setUp(self):
         path = os.path.join(settings.BASE_DIR, 'core', 'tests', 'fixtures', 'photo.png')
-        self.obj = RealEstate(
-            address='XPTO',
+        self.obj = Realty(
+            address='Adress',
             photo=path,
             longitude=1,
             latitude=2,
         )
         self.obj.save()
 
-        self.dao = RealEstateDAO()
+        self.dao = RealtyDAO()
 
     def test_map_obj_correctly(self):
         expected = {

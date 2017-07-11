@@ -1,0 +1,1 @@
+from .realty_views import AddRealtyView, IndexView

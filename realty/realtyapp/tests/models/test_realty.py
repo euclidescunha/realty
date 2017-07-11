@@ -3,7 +3,7 @@ import os
 from django.conf import settings
 from django.test import TestCase
 
-from core.models import Realty
+from realtyapp.models import Realty
 
 
 class RealtyTestCase(TestCase):

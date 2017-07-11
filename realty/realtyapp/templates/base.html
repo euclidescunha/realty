@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <title>{% block title %}Bzout Imóveis{% endblock %}</title>
+  {% block css %}
+  <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.min.css" %}" />
+  <link rel="stylesheet" href="{% static "css/main.css" %}" />
+  {% endblock %}
+
+  {% block script %}
+  {% endblock %}
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Bzout Imóveis</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="{% block home-menu-class %}{% endblock %}"><a href="/">Home</a></li>
+          <li class="{% block add-real-estate-menu-class %}{% endblock %}"><a href="{% url "realtyapp:add_realty" %}">Cadastrar</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container content">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>{% block page-header %}{% endblock %}</h1>
+      </div>
+    </div>
+
+    {% block content %}{% endblock %}
+  </div>
+
+  {% block post-script %}{% endblock %}
+</body>
+</html>
